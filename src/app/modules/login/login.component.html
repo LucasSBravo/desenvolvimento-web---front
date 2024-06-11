@@ -1,0 +1,49 @@
+<div class="flex h-screen">
+    <section class="w-1/2 hidden justify-center md:flex">
+        <img src="assets/images/logo.svg" alt="Logo Wallet Wise" width="350">
+    </section>
+
+    <section class="w-screen bg-[#000638] flex justify-center text-white md:w-1/2">
+        <div class="flex flex-col justify-center gap-[30px] w-[392px] mx-5">
+            <div class="flex flex-col gap-5">
+                <h1 class="font-semibold text-2xl">Bem-vindo a Wallet Wise</h1>
+                <p class="font-semibold text-base">Faça login para acessar sua conta</p>
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-[30px]">
+                <div class="flex flex-col gap-[15px]">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-medium" for="usuario">Usuário</label>
+                        <div class="flex justify-between relative">
+                            <input maxlength="15" formControlName="usuario" class="font-semibold w-full border border-transparent border-solid outline-none text-[#000638] py-[10px] px-3 rounded focus:border-black" id="usuario" name="usuario" type="text">
+                            <span (click)="limparUsuario()" class="absolute font-semibold cursor-pointer text-[#000638] right-4 top-1/2 -translate-y-1/2 duration-200 hover:scale-125">&#10006;</span>
+                        </div>
+                        <div class="h-4">
+                            <span class="text-xs text-red-400 font-semibold" *ngIf="loginForm.get('usuario')?.hasError('required') && loginForm.get('usuario')?.touched">Usuário é obrigatório</span>
+                            <span class="text-xs text-red-400 font-semibold" *ngIf="loginForm.get('usuario')?.hasError('pattern') && loginForm.get('usuario')?.touched">Não pode conter espaços</span>
+                        </div>  
+                    </div>
+    
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-medium" for="senha">Senha</label>
+                        <div class="flex justify-between relative">
+                            <input maxlength="15" formControlName="senha" class="font-semibold w-full border border-transparent border-solid outline-none text-[#000638] py-[10px] px-3 rounded focus:border-black" id="senha" name="senha" type="password">
+                            <span (click)="limparSenha()" class="absolute font-semibold cursor-pointer text-[#000638] right-4 top-1/2 -translate-y-1/2 duration-200 hover:scale-125">&#10006;</span>
+                        </div>
+                        <div class="h-4">
+                            <span class="text-xs text-red-400 font-semibold" *ngIf="loginForm.get('senha')?.hasError('required') && loginForm.get('senha')?.touched">Senha é obrigatório</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button [ngClass]="{'isDisabled': !loginForm.valid}" type="submit" class="teste123 outline-none py-2 px-8 rounded-[32px] bg-[#6891FF] font-semibold duration-300 hover:text-[#6891FF] hover:bg-white focus:text-[#6891FF] focus:bg-white">Entrar</button>
+                </div>
+            </form>
+
+            <div class="flex justify-center">
+                <span class="text-xs font-bold duration-300">Ainda não tem uma conta? <span class="text-[#6891FF] cursor-pointer duration-300 hover:text-white" [routerLink]="'/cadastro'">Cadastre-se agora!</span></span> 
+            </div>
+        </div>
+    </section>
+</div>

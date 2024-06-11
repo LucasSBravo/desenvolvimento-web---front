@@ -1,0 +1,75 @@
+
+<div class="h-screen bg-[#000638]">
+    <header class="bg-[#6891FF] w-screen p-5 flex justify-between">
+        <h1 class="text-white font-semibold">Bem-vindo(a), {{userName}}</h1>
+        <img src="assets/images/logout.svg" alt="Sair" width="24" class="cursor-pointer" (click)="sair()">
+    </header>    
+
+    <div class="flex justify-between items-center mx-5 mt-10 mb-5">
+        <h1 class="text-white text-lg text-center font-semibold">Saldo: 
+            <span [ngClass]="{'text-red-500': saldo < 0}" class="text-green-400">{{saldo | currency:'BRL'}}</span>
+        </h1>
+        <button (click)="abrirModal(false)" class="text-white py-2 px-8 font-semibold bg-[#6891FF] rounded-3xl hidden duration-300 hover:bg-[#FFFFFF] hover:text-[#6891FF] sm:block">Nova Transação</button>
+        <img (click)="abrirModal(false)" class="cursor-pointer sm:hidden" src="assets/images/add.svg" alt="Adicionar" width="24">
+    </div>
+    <section class="bg-[#000638] mx-5 mt-10 rounded-lg overflow-hidden">
+        
+        <div *ngFor="let transacao of transacoes" class="p-3 bg-[#1B2A39] mb-[2px]">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="font-semibold text-lg text-white">{{ transacao.nome }}</h1>
+                    <p [ngClass]="{'text-red-500': !transacao.tipo_transacao}" class="text-lg text-green-400 font-semibold">{{ transacao.valor | currency:'BRL' }}</p>
+                </div>
+                <div class="flex justify-center items-center gap-3">
+                    <img class="cursor-pointer duration-300" (click)="deletarTransacao(transacao.id)" src="assets/images/delete.svg" alt="Excluir" width="24">
+                    <img class="cursor-pointer duration-300" src="assets/images/alter.svg" alt="Editar" width="24" (click)="abrirModal(true, transacao.id)">
+                </div>
+            </div>            
+        </div>
+    </section>
+
+    <div *ngIf="mostrarModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" (click)="verificarClique($event)">
+        <div class="bg-[#1B2A39] rounded-lg p-8 w-screen mx-5 sm:w-[640px]" [formGroup]="transacaoForm">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl text-white font-semibold" *ngIf="!editar">Incluir Transação</h2>
+                <h2 class="text-xl text-white font-semibold" *ngIf="editar">Editar Transação</h2>
+                <img (click)="fecharModal()" class="cursor-pointer" src="assets/images/closeModal.svg" alt="Fechar" width="24">
+            </div>
+            <div class="flex flex-col gap-[15px]">
+                <div class="flex flex-col gap-1">
+                    <label class="text-xs text-white font-medium" for="nome">Nome</label>
+                    <div class="flex justify-between relative">
+                        <input maxlength="15" formControlName="nome" class="font-semibold w-full border border-transparent border-solid outline-none text-[#000638] py-[10px] px-3 rounded focus:border-black" id="nome" name="nome" type="text">
+                        <span class="absolute font-semibold cursor-pointer text-[#000638] right-4 top-1/2 -translate-y-1/2 duration-200 hover:scale-125">&#10006;</span>
+                    </div>
+                </div>
+    
+                <div class="flex flex-col gap-1">
+                    <label class="text-xs text-white font-medium" for="valor">Valor</label>
+                    <div class="flex justify-between relative">
+                        <input formControlName="valor" class="teste font-semibold w-full border border-transparent border-solid outline-none text-[#000638] py-[10px] px-3 rounded focus:border-black" id="valor" name="valor" type="number">
+                        <span class="absolute font-semibold cursor-pointer text-[#000638] right-4 top-1/2 -translate-y-1/2 duration-200 hover:scale-125">&#10006;</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="text-xs text-white font-medium">Tipo de Operação</label>
+                    <div class="flex gap-4">
+                        <div class="flex items-center gap-1">
+                            <input formControlName="tipo_transacao" id="entrada" name="tipo_transacao" type="radio" [value]="true" class="appearance-none h-5 w-5 rounded-[50%] bg-white cursor-pointer checked:bg-[#000638] border-[3px]">
+                            <span class="text-white font-medium">Entrada</span>
+                        </div>
+                        
+                        <div class="flex items-center gap-1">
+                            <input formControlName="tipo_transacao" id="saida" name="tipo_transacao" type="radio" [value]="false" class="appearance-none h-5 w-5 rounded-[50%] bg-white cursor-pointer checked:bg-[#000638] border-[3px]">
+                            <span class="text-white font-medium">Saída</span>
+                        </div>                        
+                    </div>                    
+                </div>
+            </div>
+            <button class="text-white duration-300 py-2 px-8 font-semibold bg-[#6891FF] rounded-3xl hover:bg-[#FFFFFF] hover:text-[#6891FF] mt-[15px]" [ngClass]="{'isDisabled': !transacaoForm.valid}" *ngIf="editar" (click)="editarTransacao()">Alterar</button>
+            <button class="text-white duration-300 py-2 px-8 font-semibold bg-[#6891FF] rounded-3xl hover:bg-[#FFFFFF] hover:text-[#6891FF] mt-[15px]" [ngClass]="{'isDisabled': !transacaoForm.valid}" (click)="criarTransacao()" *ngIf="!editar">Salvar</button>
+        </div>
+    </div>
+
+</div>

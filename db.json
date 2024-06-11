@@ -1,0 +1,52 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "email": "rafaelvillaca2020@gmail.com",
+      "nome": "Rafael da Cunha Villaça",
+      "usuario": "rafael.villaca",
+      "senha": "Rafael395"
+    },
+    {
+      "email": "luizaamorim15@hotmail.com",
+      "nome": "Luiza Amorim Barroso",
+      "usuario": "luiza.amorim",
+      "senha": "Luiza123",
+      "id": 2
+    },
+    {
+      "email": "gabrielvillaca@gmail.com",
+      "nome": "Gabriel da Cunha Villaça",
+      "usuario": "gabriel.villaca",
+      "senha": "1234",
+      "id": 3
+    },
+    {
+      "email": "lucasaraujo@hotmail.com",
+      "nome": "Lucas Araujo",
+      "usuario": "lucas.araujo",
+      "senha": "123",
+      "id": 4
+    }
+  ],
+  "transacoes": [
+    {
+      "id": 1,
+      "valor": 1612,
+      "nome": "Salário",
+      "usuarioId": 1
+    },
+    {
+      "id": 2,
+      "valor": -190,
+      "nome": "Academia",
+      "usuarioId": 1
+    },
+    {
+      "id": 3,
+      "valor": -210,
+      "nome": "Academia",
+      "usuarioId": 2
+    }
+  ]
+}

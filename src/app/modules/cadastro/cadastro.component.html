@@ -1,0 +1,106 @@
+<div class="flex h-screen">
+    <section class="w-1/2 hidden justify-center md:flex">
+        <img src="assets/images/logo.svg" alt="Logo Wallet Wise" width="350">
+    </section>
+
+    <section class="w-screen bg-[#000638] flex justify-center text-white md:w-1/2">
+        <div class="flex flex-col justify-center gap-[30px] w-[392px] mx-5">
+
+            <div class="flex flex-col mb-[6px]">
+                <div class="flex gap-2 self-center font-semibold text-2xl stepper">
+                    <span data-step="1" class="step active duration-300 cursor-pointer">__</span>
+                    <span data-step="2" class="step duration-300 cursor-pointer">__</span>
+                    <span data-step="3" class="step duration-300 cursor-pointer">__</span>
+                    <span data-step="4"class="step duration-300 cursor-pointer">__</span>
+                </div>
+            </div>
+
+            <form [formGroup]="cadastroForm" class="step-content flex flex-col gap-[30px]">
+                <p class="font-semibold text-base">Qual é o seu nome?</p>
+
+                <div class="flex flex-col gap-1">
+                    <label class="text-xs font-medium" for="nome">Nome</label>
+                    <div class="flex justify-between relative">
+                        <input maxlength="35" (keydown)="stepperTabEnter($event)" formControlName="nome" class="w-full border border-transparent border-solid outline-none text-[#000638] py-[10px] px-3 rounded focus:border-black font-semibold" id="nome" name="nome" type="text">
+                        <span (click)="limparNome()" class="absolute font-semibold text-[#000638] cursor-pointer right-4 top-1/2 -translate-y-1/2 duration-200 hover:scale-125">&#10006;</span>
+                    </div>
+                    <div class="h-4">
+                        <span class="text-xs font-semibold text-red-400" *ngIf="cadastroForm.get('nome')?.hasError('required') && cadastroForm.get('nome')?.touched">Nome é obrigatório</span>                    
+                        <span class="text-xs font-semibold text-red-400" *ngIf="cadastroForm.get('nome')?.hasError('espacosInicioFim') && cadastroForm.get('nome')?.touched">Não é permitido espaços ao redor</span>                    
+                    </div>
+                </div>
+            </form>
+
+            <form [formGroup]="cadastroForm" class="step-content hidden flex-col gap-[30px]">
+                <p class="font-semibold text-base">Qual é o seu email?</p>
+
+                <div class="flex flex-col gap-1">
+                    <label class="text-xs font-medium" for="email">E-mail</label>
+                    <div class="flex justify-between relative">
+                        <input (keydown)="stepperTabEnter($event)" formControlName="email" class="font-semibold w-full border border-transparent border-solid outline-none text-[#000638] py-[10px] px-3 rounded focus:border-black" id="email" name="email" type="email">
+                        <span (click)="limparEmail()" class="absolute font-semibold cursor-pointer text-[#000638] right-4 top-1/2 -translate-y-1/2 duration-200 hover:scale-125">&#10006;</span>
+                    </div>
+                    <div class="h-4">
+                        <span class="text-xs text-red-400 font-semibold" *ngIf="cadastroForm.get('email')?.hasError('required') && cadastroForm.get('email')?.touched">Email é obrigatório</span>
+                        <span class="text-xs text-red-400 font-semibold" *ngIf="cadastroForm.get('email')?.hasError('email') && cadastroForm.get('email')?.touched">Informe um email válido</span>
+                        <span class="text-xs font-semibold text-red-400" *ngIf="cadastroForm.get('email')?.hasError('espacosInicioFim') && cadastroForm.get('email')?.touched">Não é permitido espaços ao redor</span>                    
+                    </div>
+                </div>
+            </form>
+
+            <form [formGroup]="cadastroForm" class="step-content hidden flex-col gap-[30px]">
+                <p class="font-semibold text-base">Escolha um nome de usuário</p>
+
+                <div class="flex flex-col gap-1">
+                    <label class="text-xs font-medium" for="usuario">Usuário</label>
+                    <div class="flex justify-between relative">
+                        <input maxlength="15" (keydown)="stepperTabEnter($event)" formControlName="usuario" class="font-semibold w-full border border-transparent border-solid outline-none text-[#000638] py-[10px] px-3 rounded focus:border-black" id="usuario" name="usuario" type="text">
+                        <span (click)="limparUsuario()" class="absolute font-semibold cursor-pointer text-[#000638] right-4 top-1/2 -translate-y-1/2 duration-200 hover:scale-125">&#10006;</span>
+                    </div>
+                    <div class="h-4">
+                        <span class="text-xs text-red-400 font-semibold" *ngIf="cadastroForm.get('usuario')?.hasError('required') && cadastroForm.get('usuario')?.touched">Usuário é obrigatório</span>
+                        <span class="text-xs text-red-400 font-semibold" *ngIf="cadastroForm.get('usuario')?.hasError('pattern') && cadastroForm.get('usuario')?.touched">Não pode conter espaços</span>
+                    </div>                    
+                </div>
+            </form>
+
+            <form (ngSubmit)="onSubmit()" [formGroup]="cadastroForm" class="step-content hidden flex-col gap-[30px]">
+                <p class="font-semibold text-base">Escolha uma senha</p>
+
+                <div class="flex flex-col gap-[15px]">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-medium" for="senha">Senha</label>
+                        <div class="flex justify-between relative">
+                            <input maxlength="15" formControlName="senha" class="font-semibold w-full border border-transparent border-solid outline-none text-[#000638] py-[10px] px-3 rounded focus:border-black" id="senha" name="senha" type="password">
+                            <span (click)="limparSenha()" class="absolute font-semibold cursor-pointer text-[#000638] right-4 top-1/2 -translate-y-1/2 duration-200 hover:scale-125">&#10006;</span>
+                        </div>
+                        <div class="h-4">
+                            <span class="text-xs text-red-400 font-semibold" *ngIf="cadastroForm.get('senha')?.hasError('required') && cadastroForm.get('senha')?.touched">Senha é obrigatório</span>
+                        </div>
+                    </div>
+    
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-medium" for="confirmacaoSenha">Confirme sua senha</label>
+                        <div class="flex justify-between relative">
+                            <input maxlength="15" formControlName="confirmacaoSenha" class="font-semibold w-full border border-transparent border-solid outline-none text-[#000638] py-[10px] px-3 rounded focus:border-black" id="confirmacaoSenha" name="confirmacaoSenha" type="password">
+                            <span (click)="limparConfirmarSenha()" class="absolute font-semibold cursor-pointer text-[#000638] right-4 top-1/2 -translate-y-1/2 duration-200 hover:scale-125">&#10006;</span>
+                        </div>
+                        <div class="h-4">
+                            <span class="text-xs text-red-400 font-semibold" *ngIf="cadastroForm.get('confirmacaoSenha')?.hasError('required') && cadastroForm.get('confirmacaoSenha')?.touched">Confirmar Senha é obrigatório</span>
+                            <span class="text-xs text-red-400 font-semibold" *ngIf="cadastroForm.hasError('senhaNaoCoincide') && cadastroForm.get('confirmacaoSenha')?.value">As senhas não coincidem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button [ngClass]="{'isDisabled': !cadastroForm.valid}" type="submit" class="outline-none py-2 px-8 rounded-[32px] bg-[#6891FF] font-semibold duration-300 hover:text-[#6891FF] hover:bg-white focus:text-[#6891FF] focus:bg-white">Cadastrar</button>
+                </div>
+            </form>
+
+            <div class="flex justify-center">
+                <span class="text-xs font-bold duration-300">Já possui uma conta? <span class="text-[#6891FF] cursor-pointer duration-300 hover:text-white" [routerLink]="'/login'">Entre agora mesmo!</span></span> 
+            </div>
+            
+        </div>
+    </section>
+</div>

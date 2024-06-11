@@ -1,0 +1,10 @@
+.isDisabled {
+    background-color: #aaaaaa;
+    color: #cccccc;
+    pointer-events: none;
+}
+
+.isDisabled:focus {
+    background-color: #aaaaaa;
+    color: #cccccc;
+}

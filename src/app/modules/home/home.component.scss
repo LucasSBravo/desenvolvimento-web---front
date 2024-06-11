@@ -1,0 +1,17 @@
+.teste::-webkit-inner-spin-button,
+.teste::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.isDisabled {
+    background-color: #aaaaaa;
+    color: #cccccc;
+    pointer-events: none;
+}
+
+.isDisabled:focus {
+    background-color: #aaaaaa;
+    color: #cccccc;
+}

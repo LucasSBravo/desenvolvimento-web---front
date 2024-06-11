@@ -1,0 +1,18 @@
+.active {
+    color: #6891FF !important;
+}
+
+.step {
+    color: #FFFFFF;
+}
+
+.isDisabled {
+    background-color: #aaaaaa;
+    color: #cccccc;
+    pointer-events: none;
+}
+
+.isDisabled:focus {
+    background-color: #aaaaaa;
+    color: #cccccc;
+}
